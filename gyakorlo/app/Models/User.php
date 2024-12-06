@@ -9,6 +9,12 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -19,3 +25,4 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 }
+
