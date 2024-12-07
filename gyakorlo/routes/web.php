@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,13 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->get('/admin', function () {
-    return view('admin.dashboard');
-});
-
-Route::middleware(['auth', 'role:user'])->get('/user-dashboard', function () {
-    return view('user.dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/message/create', [MessageController::class, 'create'])->name('message.create');
+    Route::post('/message/store', [MessageController::class, 'store'])->name('message.store');
 });
 
 require __DIR__.'/auth.php';
-

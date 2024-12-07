@@ -57,4 +57,8 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function write(Request $request) {
+        $request->user()->fill($request->validated());
+    }
 }
